@@ -1,52 +1,100 @@
-\# Docker Deployment
+# Docker Deployment
 
+This document explains how to run the Student Course Registration System with Docker Compose.
 
+## Services
 
-This branch contains the Docker-based automated deployment version of the Student Course Registration System.
+Docker Compose starts three containers:
 
+| Service  | Description                  | Image / Build      | Port on host |
+| -------- | ---------------------------- | ------------------ | ------------ |
+| db       | PostgreSQL database          | postgres:15-alpine | 5432         |
+| backend  | Node.js Express API          | ./backend          | 5000         |
+| frontend | React app (Vite dev server)  | ./frontend         | 3000         |
 
+The database schema and sample data from `database/schema.sql` are loaded
+automatically the **first time** the database container starts. Data is kept
+in a named Docker volume (`postgres_data`), so it survives restarts.
 
-\## Purpose
+## Prerequisites
 
+- Docker Desktop installed and running.
+- Ports 3000, 5000, and 5432 free on your machine.
+  (If you have PostgreSQL installed locally, stop it first or it will
+  conflict with the database container on port 5432.)
 
+## Run the app
 
-This deployment method runs the complete three-tier application using Docker Compose.
+From the project root:
 
+```bash
+docker compose up --build
+```
 
+Add `-d` to run in the background:
 
-\## Services
+```bash
+docker compose up --build -d
+```
 
+Then open the frontend in your browser: <http://localhost:3000>
 
+## Check the running containers
 
-\- React frontend container
+```bash
+docker compose ps
+```
 
-\- Node.js Express backend container
+You should see three containers: `course-registration-db` (healthy),
+`course-registration-backend`, and `course-registration-frontend`.
 
-\- PostgreSQL database container
+To watch the logs:
 
+```bash
+docker compose logs -f
+```
 
+## Check the backend health endpoint
 
-\## Basic Docker Deployment Flow
+```bash
+curl http://localhost:5000/api/health
+```
 
+Expected response:
 
+```json
+{"status":"ok"}
+```
 
-1\. Install Docker and Docker Compose.
+You can also try a real API route:
 
-2\. Clone this branch.
+```bash
+curl http://localhost:5000/api/students
+```
 
-3\. Run Docker Compose.
+## Verify PostgreSQL data inside the container
 
-4\. Verify all containers are running.
+List the tables:
 
-5\. Access the frontend from browser.
+```bash
+docker compose exec db psql -U postgres -d course_registration -c "\dt"
+```
 
-6\. Verify backend and database connectivity.
+Query the sample data:
 
+```bash
+docker compose exec db psql -U postgres -d course_registration -c "SELECT * FROM students;"
+```
 
+## Stop the app
 
-\## Branch
+```bash
+docker compose down
+```
 
+Database data is kept in the `postgres_data` volume. To delete the data and
+start fresh (the schema and sample data will be reloaded on next startup):
 
-
-docker-deployment
-
+```bash
+docker compose down -v
+```
