@@ -1,0 +1,489 @@
+/* Global styles - plain CSS, modern university admin dashboard look */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden; /* prevent any horizontal scroll on the page */
+}
+
+body {
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  background-color: #f0f3f8;
+  color: #2d3748;
+  line-height: 1.5;
+}
+
+/* Top bar */
+.topbar {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+  color: white;
+  padding: 14px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.topbar-inner {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0; /* allow the title to shrink so the status badge is never pushed off-screen */
+}
+
+.topbar h1 {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.subtitle {
+  margin-top: 2px;
+  font-size: 13px;
+  color: #bcd0e5;
+}
+
+.tech-badge {
+  display: inline-block;
+  width: fit-content;
+  margin-top: 6px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: #d6e6fa;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 20px;
+}
+
+/* API status indicator */
+.api-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  white-space: nowrap;
+  flex-shrink: 0;
+  max-width: 100%;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ecc94b;
+  flex-shrink: 0;
+}
+
+.api-status.online {
+  color: #c6f6d5;
+}
+
+.api-status.online .status-dot {
+  background-color: #48bb78;
+  box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.18);
+}
+
+.api-status.offline {
+  color: #fed7d7;
+}
+
+.api-status.offline .status-dot {
+  background-color: #f56565;
+  box-shadow: 0 0 0 3px rgba(245, 101, 101, 0.18);
+}
+
+.container {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 16px 20px 32px;
+}
+
+/* Dashboard summary cards */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.summary-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 6px rgba(30, 58, 95, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(30, 58, 95, 0.14);
+}
+
+.summary-icon {
+  font-size: 21px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.students-icon {
+  background-color: #e3edfb;
+}
+
+.courses-icon {
+  background-color: #e6f6ef;
+}
+
+.registrations-icon {
+  background-color: #fdf2e3;
+}
+
+.summary-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.summary-value {
+  font-size: 23px;
+  font-weight: 700;
+  color: #1e3a5f;
+  line-height: 1.25;
+}
+
+.summary-label {
+  font-size: 12.5px;
+  color: #718096;
+  line-height: 1.3;
+}
+
+/* Tab navigation */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 0;
+  border-bottom: 2px solid #dde4ee;
+}
+
+.tab {
+  padding: 10px 24px;
+  border: none;
+  background: none;
+  color: #5a6b82;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.tab:hover {
+  background-color: #e6ecf5;
+  color: #1e3a5f;
+}
+
+.tab.active {
+  color: #1e3a5f;
+  background-color: white;
+  border: 1px solid #dde4ee;
+  border-bottom: 3px solid #2c5282;
+  box-shadow: 0 -2px 6px rgba(30, 58, 95, 0.06);
+}
+
+.tab.active:hover {
+  background-color: white;
+}
+
+/* Main content panel */
+.panel {
+  background-color: white;
+  padding: 22px;
+  border-radius: 0 10px 10px 10px;
+  box-shadow: 0 2px 8px rgba(30, 58, 95, 0.08);
+}
+
+h2 {
+  margin-bottom: 14px;
+  color: #1e3a5f;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+/* Forms */
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 16px;
+  background-color: #f7f9fc;
+  border: 1px solid #e3e9f2;
+  border-radius: 8px;
+}
+
+.form input,
+.form select {
+  padding: 10px 14px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 14px;
+  flex: 1;
+  min-width: 160px;
+  background-color: white;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form input:focus,
+.form select:focus {
+  outline: none;
+  border-color: #2c5282;
+  box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.12);
+}
+
+.form button {
+  flex-shrink: 0;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2c5282;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+  background-color: #1e3a5f;
+  box-shadow: 0 2px 6px rgba(30, 58, 95, 0.25);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button.secondary {
+  background-color: #8896a8;
+}
+
+button.secondary:hover {
+  background-color: #6e7d91;
+}
+
+button.small {
+  padding: 5px 12px;
+  font-size: 12.5px;
+}
+
+button.danger {
+  background-color: #c53030;
+}
+
+button.danger:hover {
+  background-color: #9b2424;
+}
+
+/* Tables */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid #e3e9f2;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 540px;
+}
+
+th,
+td {
+  padding: 9px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e9eef5;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+th {
+  background-color: #f0f4f9;
+  font-weight: 600;
+  color: #44546a;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+tbody tr {
+  transition: background-color 0.12s ease;
+}
+
+tbody tr:hover {
+  background-color: #f6f9fd;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Action button group inside table cells */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.empty {
+  text-align: center;
+  color: #94a3b8;
+  padding: 24px;
+}
+
+/* Error message */
+.error {
+  background-color: #fdecea;
+  color: #c53030;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border-left: 4px solid #c53030;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+/* "Full" badge on courses */
+.badge {
+  background-color: #c53030;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-left: 8px;
+}
+
+/* Responsive - small laptops */
+@media (max-width: 992px) {
+  .summary {
+    gap: 10px;
+  }
+
+  .summary-card {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .summary-value {
+    font-size: 21px;
+  }
+
+  .summary-label {
+    font-size: 12px;
+  }
+}
+
+/* Responsive - tablets */
+@media (max-width: 768px) {
+  .summary {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .topbar {
+    padding: 14px 16px;
+  }
+
+  .topbar-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topbar h1 {
+    font-size: 19px;
+  }
+
+  .api-status {
+    align-self: flex-start;
+    margin-left: 0;
+  }
+
+  .panel {
+    padding: 16px;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .tabs {
+    gap: 4px;
+  }
+
+  .tab {
+    padding: 10px 16px;
+    font-size: 14px;
+    flex: 1;
+    text-align: center;
+  }
+
+  .form input,
+  .form select {
+    min-width: 100%;
+  }
+
+  .form button {
+    width: 100%;
+  }
+}
+
+/* Responsive - phones */
+@media (max-width: 480px) {
+  .container {
+    padding: 16px 12px 28px;
+  }
+
+  .summary-card {
+    padding: 16px;
+  }
+
+  .summary-value {
+    font-size: 24px;
+  }
+
+  .tab {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+}
